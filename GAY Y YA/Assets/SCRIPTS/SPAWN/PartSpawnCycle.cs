@@ -4,19 +4,6 @@ using UnityEngine;
 
 namespace TrainMechanic.Puzzles
 {
-    /// <summary>
-    /// Spawner simple para jam: llena puntos fijos puestos a mano en la escena,
-    /// usando el MISMO patrón que MaintenancePartBase.InstallPart (si había algo
-    /// en el punto, se destruye; se instancia el prefab nuevo en su lugar).
-    /// Nada de tracking de "puntos libres" ni ScriptableObject de layout: cada
-    /// Transform del array ES un slot fijo.
-    ///
-    /// El catálogo se reparte con un "shuffle bag" (como el generador de piezas
-    /// de Tetris): se mezcla la lista completa, se va sacando una por una sin
-    /// repetir, y cuando se vacía se vuelve a mezclar. Así nunca sabés qué sigue,
-    /// pero tampoco se repite la misma dos veces seguidas, y el ciclo nuevo NO
-    /// tiene por qué arrancar en la primera del catálogo.
-    /// </summary>
     public class PartSpawnCycle : MonoBehaviour
     {
         [Header("Puntos de spawn (puestos a mano en la escena, arrastra los 4)")]
@@ -51,6 +38,12 @@ namespace TrainMechanic.Puzzles
                  "no se aplica, solo delay y cantidad de puntos.")]
         [SerializeField] private Transform distanceReferencePoint;
 
+        [Header("Debug")]
+        [Tooltip("Muestra en pantalla (arriba a la izquierda) los valores actuales de dificultad " +
+                 "mientras jugás/testeás: progreso, delay, respawn, y cuántos puntos siguen activos. " +
+                 "Apagalo antes del build final del jam (OnGUI gasta rendimiento).")]
+        [SerializeField] private bool showDifficultyDebugHud = true;
+
         // Instancia actualmente viva en cada punto (o null si el slot está vacío).
         private readonly Dictionary<Transform, ReplacementPart> _installed = new();
 
@@ -70,6 +63,9 @@ namespace TrainMechanic.Puzzles
         // entre los "al empezar" y los "AtEnd" según journey.Progress01).
         private float _currentDelayBetweenSpawns;
         private float _currentRespawnDelay;
+
+        // Guardado solo para mostrarlo en el HUD de debug (ver OnGUI).
+        private float _lastKnownProgress01;
 
         private void Start()
         {
@@ -150,6 +146,8 @@ namespace TrainMechanic.Puzzles
         /// puntos siguen activos.
         private void HandleProgressChanged(float progress01)
         {
+            _lastKnownProgress01 = progress01;
+
             _currentDelayBetweenSpawns = Mathf.Lerp(delayBetweenSpawns, delayBetweenSpawnsAtEnd, progress01);
             _currentRespawnDelay = Mathf.Lerp(respawnDelay, respawnDelayAtEnd, progress01);
 
@@ -165,6 +163,32 @@ namespace TrainMechanic.Puzzles
                 var p = _sortedByDistanceDescending[i];
                 if (p != null) _activePoints.Add(p);
             }
+        }
+
+        // HUD de texto simple arriba a la izquierda de la pantalla, SOLO para
+        // testear/afinar números durante el jam. OnGUI corre en Modo Inmediato
+        // (sin batching), por eso es un toggle apagable — no lo dejes prendido
+        // en el build que entregues.
+        private void OnGUI()
+        {
+            if (!showDifficultyDebugHud) return;
+
+            GUI.Label(new Rect(10, 10, 420, 20),
+                $"Progreso del viaje: {_lastKnownProgress01 * 100f:0}%" +
+                (journey == null ? "  (SIN journey asignado — dificultad fija)" : ""));
+
+            GUI.Label(new Rect(10, 30, 420, 20),
+                $"Delay entre spawns actual: {_currentDelayBetweenSpawns:0.0}s " +
+                $"(inicio {delayBetweenSpawns:0.0}s -> final {delayBetweenSpawnsAtEnd:0.0}s)");
+
+            GUI.Label(new Rect(10, 50, 420, 20),
+                $"Respawn delay actual: {_currentRespawnDelay:0.0}s " +
+                $"(inicio {respawnDelay:0.0}s -> final {respawnDelayAtEnd:0.0}s)");
+
+            GUI.Label(new Rect(10, 70, 420, 20),
+                $"Puntos activos ahora: {_activePoints.Count} / {spawnPoints.Length} " +
+                $"(mínimo al final: {minActivePointsAtEnd})" +
+                (distanceReferencePoint == null ? "  (SIN Distance Reference Point — no aleja items)" : ""));
         }
 
         private IEnumerator FillPointsRoutine()

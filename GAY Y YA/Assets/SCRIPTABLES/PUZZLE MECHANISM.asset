@@ -17,6 +17,6 @@ MonoBehaviour:
   mechanismPrefab: {fileID: 5320042366217827509, guid: a73e50fc77d8ad64893cf1b8db7ce811, type: 3}
   requiredPart: {fileID: 11400000, guid: 91bda2b9600a4c5448d14e860d61bd8d, type: 2}
   minDurability: 3
-  maxDurability: 5
+  maxDurability: 10
   spawnWeight: 1
   difficultyTier: 1

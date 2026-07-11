@@ -13,6 +13,13 @@ namespace TrainMechanic.Puzzles
     {
         public ReplacementPart CurrentPart { get; private set; }
 
+        /// Cuántas piezas se recogieron en total durante la partida (acumulado,
+        /// no baja cuando se consume una). Pensado para las stats de fin de
+        /// partida (RunResultStatsUI) — típicamente va a ser igual o un poco
+        /// mayor a MaintenanceManager.TotalRepairsCount (si el jugador terminó
+        /// la partida con una pieza en la mano sin llegar a usarla).
+        public int TotalPartsCollected { get; private set; }
+
         /// Se dispara cuando cambia lo que el jugador trae en mano.
         /// null significa "manos vacías". Útil para UI sin Update().
         public event Action<ReplacementPart> OnPartChanged;
@@ -25,6 +32,7 @@ namespace TrainMechanic.Puzzles
             if (!IsEmpty || part == null) return false;
 
             CurrentPart = part;
+            TotalPartsCollected++;
             OnPartChanged?.Invoke(CurrentPart);
             return true;
         }

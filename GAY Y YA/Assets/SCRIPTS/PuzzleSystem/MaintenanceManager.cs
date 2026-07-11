@@ -9,6 +9,11 @@ namespace TrainMechanic.Puzzles
         private readonly List<IPuzzleMechanism> _brokenMechanisms = new();
         public IReadOnlyList<IPuzzleMechanism> BrokenMechanisms => _brokenMechanisms;
 
+        /// Cuántas reparaciones exitosas hubo en total durante la partida (no
+        /// cuántos mecanismos están rotos AHORA, sino el acumulado histórico).
+        /// Pensado para mostrarse en las stats de fin de partida (RunResultStatsUI).
+        public int TotalRepairsCount { get; private set; }
+
         /// Se dispara cada vez que la lista de rotos cambia (se rompió algo
         /// o se reparó algo). La UI se suscribe a esto, no a cada mecanismo.
         public event Action<IReadOnlyList<IPuzzleMechanism>> OnBrokenListChanged;
@@ -36,6 +41,7 @@ namespace TrainMechanic.Puzzles
         private void HandleAnyMechanismRepaired(IPuzzleMechanism mechanism)
         {
             _brokenMechanisms.Remove(mechanism);
+            TotalRepairsCount++;
             OnBrokenListChanged?.Invoke(_brokenMechanisms);
         }
     }

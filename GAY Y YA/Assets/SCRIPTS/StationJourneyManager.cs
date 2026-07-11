@@ -25,6 +25,11 @@ namespace TrainMechanic.Puzzles
         public bool IsGameOver { get; private set; }
         public bool HasArrived { get; private set; }
 
+        /// Segundos reales jugados hasta ahora (o hasta que terminó la partida,
+        /// si ya hubo Game Over o Llegada). Pensado para las stats de fin de
+        /// partida (RunResultStatsUI).
+        public float ElapsedSeconds => _elapsed;
+
         /// Progreso actualizado cada frame (para animar barra + ícono del tren).
         public event Action<float> OnProgressChanged;
         /// Se dispara UNA vez, cuando explota la máquina (demasiados mecanismos rotos a la vez).
