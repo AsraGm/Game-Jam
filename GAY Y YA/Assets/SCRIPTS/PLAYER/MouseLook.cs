@@ -13,6 +13,8 @@ public class MouseLook : MonoBehaviour
 {
     [Header("Sensibilidad")]
     public float mouseSensitivity = 200f;
+    private const float SENSIBILIDAD_MIN = 50f;
+    private const float SENSIBILIDAD_MAX = 600f;
 
     [Header("Cuerpo del jugador (el objeto con Rigidbody / MovementController)")]
     [SerializeField] private Transform playerBody;
@@ -39,7 +41,20 @@ public class MouseLook : MonoBehaviour
 
         // Vertical: solo se inclina la cámara, nunca el cuerpo.
         _pitch -= mouseY;
-        _pitch = Mathf.Clamp(_pitch, minPitch, maxPitch);
+        _pitch = Mathf.Clamp(_pitch, minPitch, maxPitch); 
+
         transform.localRotation = Quaternion.Euler(_pitch, 0f, 0f);
+    }
+
+    // Recibe valor del slider (0 a 1) y lo mapea al rango real
+    public void SetSensibilidad(float valorSlider)
+    {
+        mouseSensitivity = Mathf.Lerp(SENSIBILIDAD_MIN, SENSIBILIDAD_MAX, valorSlider);
+        PlayerPrefs.SetFloat("Sensibilidad", valorSlider);
+    }
+
+    public float GetSensibilidadNormalizada()
+    {
+        return Mathf.InverseLerp(SENSIBILIDAD_MIN, SENSIBILIDAD_MAX, mouseSensitivity);
     }
 }
