@@ -11,7 +11,18 @@ public class MovementController : MonoBehaviour
     private float ultimoPasoTime;
     [SerializeField] float tiempoEntrePasos = .5f;
 
+    [Header("Crouch / Agacharse (solo cámara)")]
+    [Tooltip("Cuánto baja la cámara (en unidades locales) cuando estás agachado.")]
+    [SerializeField] private float crouchCameraOffset = 0.6f;
+    [Tooltip("Qué tan rápido transiciona la cámara al agacharte/pararte (mayor = más rápido).")]
+    [SerializeField] private float crouchTransitionSpeed = 8f;
+    [Tooltip("El pivote/transform de la cámara. Tiene que estar asignado para que el agachado se note.")]
+    [SerializeField] private Transform cameraHolder;
+
+    public bool IsCrouchingActive { get; private set; }
+
     private Rigidbody rb;
+    private float standingCameraY;
 
     //Corrutinas corrutinas;
 
@@ -21,6 +32,9 @@ public class MovementController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         //corrutinas = GetComponent<Corrutinas>();
+
+        if (cameraHolder != null)
+            standingCameraY = cameraHolder.localPosition.y;
     }
 
     private void Start()
@@ -32,6 +46,7 @@ public class MovementController : MonoBehaviour
         if (controlActivo)
         {
             Jump();
+            HandleCrouch();
         }
         if (IsMoving() && Time.time > ultimoPasoTime + tiempoEntrePasos)
         {
@@ -102,4 +117,19 @@ public class MovementController : MonoBehaviour
         return Input.GetKey(KeyCode.LeftControl);
     }
 
+    // ---- Crouch real: solo cámara, sin tocar el collider ----
+    // Al soltar Ctrl se para de inmediato, sin chequeos de por medio.
+
+    private void HandleCrouch()
+    {
+        IsCrouchingActive = IsCrouching();
+
+        if (cameraHolder == null) return;
+
+        float targetY = IsCrouchingActive ? standingCameraY - crouchCameraOffset : standingCameraY;
+
+        Vector3 pos = cameraHolder.localPosition;
+        pos.y = Mathf.Lerp(pos.y, targetY, Time.deltaTime * crouchTransitionSpeed);
+        cameraHolder.localPosition = pos;
+    }
 }

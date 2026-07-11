@@ -6,6 +6,7 @@ TagManager:
   tags:
   - ASSETS
   - FLOOR
+  - A PUZZLE
   layers:
   - Default
   - TransparentFX
@@ -15,7 +16,7 @@ TagManager:
   - UI
   - ASSETS
   - FLOOR
-  - 
+  - A PUZZLE
   - 
   - 
   - 
