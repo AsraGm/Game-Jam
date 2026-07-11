@@ -115,7 +115,15 @@ namespace TrainMechanic.Puzzles
 
             // Se queda ACTIVA (visible en la mano). Apagamos su Collider para
             // que la zona de interacción no la vuelva a detectar como "recogible".
-            var col = part.GetComponent<Collider>();
+            // OJO: GetComponentInChildren (no GetComponent a secas) porque el
+            // collider de estos prefabs vive en un hijo, no en la raíz (mismo
+            // patrón que MaintenancePartBase.InstallPart). Con GetComponent a
+            // secas esto devolvía null, el collider nunca se apagaba, y la pieza
+            // se quedaba "atrapada" dentro del trigger de InteractionZone para
+            // siempre — lo que después causaba una MissingReferenceException al
+            // destruirla desde Inventory.ConsumeCurrent() mientras seguía viva
+            // en _partsInRange.
+            var col = part.GetComponentInChildren<Collider>();
             if (col != null) col.enabled = false;
         }
     }

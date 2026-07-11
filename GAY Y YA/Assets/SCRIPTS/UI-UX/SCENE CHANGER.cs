@@ -7,6 +7,11 @@ public class SCENECHANGER : MonoBehaviour
     {
         Application.targetFrameRate = 60;
     }
+    public void MAINMENU()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("MAIN MENU");
+    }
     public void Lv1()
     {
         Time.timeScale = 1f;

@@ -8,11 +8,19 @@ namespace TrainMechanic.Puzzles
     public abstract class MaintenancePartBase : MonoBehaviour, IPuzzleMechanism
     {
         [Header("Outline (shader properties _Scale y _Color)")]
-        [Tooltip("Renderer cuyo material tiene las properties _Scale y _Color del outline. " +
-                 "Si se deja vacío, simplemente no hay outline para este mecanismo. " +
+        [Tooltip("Renderer de RESPALDO, usado únicamente si la pieza instalada (ver " +
+                 "InstallPart) no tiene ningún Renderer con las properties _Scale/_Color. " +
+                 "En el uso normal NO hace falta asignar esto: el outline se busca solo, " +
+                 "automáticamente, dentro de la pieza que se instala cada vez (así 'sigue' " +
+                 "a la pieza que el jugador puso, sin importar qué mesh/material traiga). " +
                  "IMPORTANTE: el shader necesita tener una property _Color (tipo Color), " +
                  "igual que ya tiene _Scale, si todavía no la tiene hay que agregarla.")]
-        [SerializeField] private Renderer outlineRenderer;
+        [SerializeField] private Renderer fallbackOutlineRenderer;
+
+        // Renderer ACTUAL sobre el que se dibuja el outline. Se recalcula en cada
+        // InstallPart() buscando dentro de la pieza recién instalada; si no se
+        // encuentra ninguno compatible, cae a fallbackOutlineRenderer.
+        private Renderer outlineRenderer;
 
         [Header("Colores del outline por estado")]
         [SerializeField] private Color healthyColor = Color.green;
@@ -138,13 +146,16 @@ namespace TrainMechanic.Puzzles
         /// con todos sus materiales/hijos/lo que sea, no solo un mesh suelto.
         private void SwapInstalledPart(ReplacementPart part)
         {
-            if (part == null || part.Data == null || part.Data.worldPrefab == null)
+            // GetPrefabForInstall() (no GetRandomWorldPrefab() directo) para instalar la
+            // MISMA variante que el jugador vio y recogió, en vez de tirar el azar de nuevo.
+            GameObject prefab = part != null ? part.GetPrefabForInstall() : null;
+            if (part == null || part.Data == null || prefab == null)
             {
-                Debug.LogWarning($"[{name}] SwapInstalledPart: la pieza usada no tiene 'World Prefab' asignado en su ReplacementPartData.");
+                Debug.LogWarning($"[{name}] SwapInstalledPart: la pieza usada no tiene ningún 'World Prefab' asignado en su ReplacementPartData.");
                 return;
             }
 
-            InstallPart(part.Data.worldPrefab);
+            InstallPart(prefab);
             Debug.Log($"[{name}] Pieza instalada: {part.Data.displayName}");
         }
 
@@ -165,7 +176,11 @@ namespace TrainMechanic.Puzzles
                 _installedPartVisual = null;
             }
 
-            if (prefab == null) return;
+            if (prefab == null)
+            {
+                UpdateOutlineRenderer(null); // vuelve al fallback (o sin outline si tampoco hay)
+                return;
+            }
 
             _installedPartVisual = Instantiate(prefab, partAttachPoint);
             _installedPartVisual.transform.localPosition = Vector3.zero;
@@ -179,6 +194,67 @@ namespace TrainMechanic.Puzzles
 
             var rb = _installedPartVisual.GetComponent<Rigidbody>();
             if (rb != null) Destroy(rb);
+
+            UpdateOutlineRenderer(_installedPartVisual);
+        }
+
+        /// Busca, dentro de la pieza recién instalada, un Renderer cuyo material
+        /// tenga las properties _Scale y _Color (las que usa el outline). Así, cada
+        /// vez que se instala una pieza nueva (con su propio mesh/material/shader),
+        /// el outline "sigue" a esa pieza en vez de quedar pegado a un Renderer fijo
+        /// que se rompería (o quedaría como referencia fantasma) apenas cambia la
+        /// variante visual instalada.
+        ///
+        /// installedRoot puede ser null (InstallPart(null), punto vacío): en ese
+        /// caso cae directo al fallback.
+        private void UpdateOutlineRenderer(GameObject installedRoot)
+        {
+            Renderer found = null;
+
+            if (installedRoot != null)
+            {
+                foreach (var candidate in installedRoot.GetComponentsInChildren<Renderer>())
+                {
+                    // sharedMaterial (no .material): solo estamos LEYENDO si la property
+                    // existe. Usar .material acá crearía una instancia de material por
+                    // pieza instalada, gasto de memoria innecesario para algo que ni
+                    // siquiera vamos a modificar por este renderer en particular.
+                    if (candidate.sharedMaterial != null &&
+                        candidate.sharedMaterial.HasProperty(ScalePropertyId) &&
+                        candidate.sharedMaterial.HasProperty(ColorPropertyId))
+                    {
+                        found = candidate;
+                        break;
+                    }
+                }
+
+                if (found == null)
+                {
+                    Debug.LogWarning($"[{name}] UpdateOutlineRenderer: la pieza instalada " +
+                                      $"('{installedRoot.name}') no tiene ningún Renderer con las " +
+                                      $"properties _Scale/_Color del shader de outline. Revisa que " +
+                                      $"su material use el shader correcto (o asigná un " +
+                                      $"'Fallback Outline Renderer' en el Inspector como respaldo).", this);
+                }
+            }
+
+            outlineRenderer = found != null ? found : fallbackOutlineRenderer;
+
+            // El MaterialPropertyBlock queda "cacheado" leyendo/escribiendo sobre el
+            // renderer que tenía asignado antes; como el renderer activo puede haber
+            // cambiado, se descarta para que el próximo SetScale/SetOutlineColor pida
+            // el property block del renderer NUEVO (GetPropertyBlock/SetPropertyBlock
+            // ya lo manejan bien recreándolo, esto solo evita arrastrar valores viejos
+            // de un renderer que ya no es el que se está usando).
+            _propBlock = null;
+
+            // Caso borde: si al Initialize() inicial no había NINGÚN renderer válido
+            // (ni en la pieza inicial ni fallback), StartOutline() no arrancó la
+            // corrutina de pulso. Si ahora (con esta pieza nueva) sí hay uno, la
+            // arrancamos recién acá; si ya estaba corriendo, StartOutline es un no-op
+            // seguro (reinicia la misma corrutina, no la duplica).
+            if (outlineRenderer != null)
+                StartOutline();
         }
 
         /// Hook para efectos visuales/sonido cuando se rompe. Override en cada mecanismo hijo.

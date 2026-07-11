@@ -14,5 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   partId: replacement
   displayName: replacement
-  worldPrefab: {fileID: 8993254722729532454, guid: 35609298fa186d342bd4ef84881f2143, type: 3}
+  worldPrefabs:
+  - {fileID: 8993254722729532454, guid: 35609298fa186d342bd4ef84881f2143, type: 3}
+  - {fileID: 8993254722729532454, guid: facf6fa97b5ef8e44964be05ee0f3d36, type: 3}
+  - {fileID: 8993254722729532454, guid: a6b0a6307e42a2c4fa3182a18ae95a8b, type: 3}
+  - {fileID: 8993254722729532454, guid: 155ef63731824e1458024eb5f444e604, type: 3}
   icon: {fileID: 21300000, guid: 3b1c78863f8ecbd4098f7cf120ed6efa, type: 3}

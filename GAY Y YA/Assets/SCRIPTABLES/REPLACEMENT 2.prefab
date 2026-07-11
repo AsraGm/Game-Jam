@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4067675187685187738}
   - component: {fileID: 7128610160422185930}
   m_Layer: 8
-  m_Name: REPLACEMENT
+  m_Name: REPLACEMENT 2
   m_TagString: A PUZZLE
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -42,7 +42,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8993254722729532454}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &6835440644135388314
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -67,7 +67,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 632d8d1f325119d4f994e04716d0bb54, type: 2}
-  - {fileID: 2100000, guid: f42ffe01c925165429d710a25ae5f6d3, type: 2}
+  - {fileID: 2100000, guid: 9010c4e27f268f34a89bb99b5351bc20, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

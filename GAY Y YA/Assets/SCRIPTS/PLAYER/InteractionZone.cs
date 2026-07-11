@@ -59,6 +59,11 @@ namespace TrainMechanic.Puzzles
         /// El mecanismo ROTO más cercano al punto dado, o null si no hay ninguno en rango.
         public IPuzzleMechanism GetClosestBrokenMechanism(Vector3 fromPosition)
         {
+            // Mismo seguro que en GetClosestPart. Los mecanismos hoy son fijos y no se
+            // destruyen, pero si en algún momento se pooléan de nuevo, esto evita el
+            // mismo tipo de crash sin tener que acordarse de tocar acá.
+            _mechanismsInRange.RemoveAll(m => m is Component comp && comp == null);
+
             IPuzzleMechanism closest = null;
             float closestSqrDist = float.MaxValue;
 
@@ -83,6 +88,12 @@ namespace TrainMechanic.Puzzles
         /// La pieza de repuesto más cercana al punto dado, o null si no hay ninguna en rango.
         public ReplacementPart GetClosestPart(Vector3 fromPosition)
         {
+            // Seguro defensivo: si por lo que sea una pieza se destruyó sin pasar por
+            // OnTriggerExit (ej. Destroy() directo mientras seguía "adentro" del trigger),
+            // Unity la deja como referencia fantasma acá. La purgamos antes de leer nada
+            // de ella para no repetir la MissingReferenceException.
+            _partsInRange.RemoveAll(p => p == null);
+
             ReplacementPart closest = null;
             float closestSqrDist = float.MaxValue;
 

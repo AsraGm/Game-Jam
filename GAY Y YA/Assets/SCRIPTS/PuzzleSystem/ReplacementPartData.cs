@@ -1,11 +1,8 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace TrainMechanic.Puzzles
 {
-    /// <summary>
-    /// Configuración de UN TIPO de pieza de repuesto que el jugador puede
-    /// encontrar en el mundo (el objeto "X" que busca).
-    /// </summary>
     [CreateAssetMenu(fileName = "New Replacement Part", menuName = "TrainMechanic/Replacement Part Data")]
     public class ReplacementPartData : ScriptableObject
     {
@@ -13,12 +10,24 @@ namespace TrainMechanic.Puzzles
         public string partId; // ej: "copper_pipe", "fuse_20a"
         public string displayName;
 
-        [Header("Prefab para el juego")]
-        [Tooltip("También es de acá de donde se saca el mesh/material al reparar " +
-                 "un mecanismo con esta pieza (ver MaintenancePartBase.SwapVisualMesh).")]
-        public GameObject worldPrefab;
+        [Header("Prefabs para el juego (variantes visuales)")]
+        [Tooltip("Una o más variantes válidas para esta pieza. Si hay más de una, cada vez " +
+                 "que se necesita instanciar un prefab (al spawnear en el mundo con " +
+                 "PartSpawnCycle, o al instalarse en un mecanismo reparado con " +
+                 "MaintenancePartBase.SwapInstalledPart) se elige una al azar. Todas cuentan " +
+                 "como la MISMA pieza a efectos de partId/matching, solo cambia el aspecto.")]
+        [SerializeField] private List<GameObject> worldPrefabs = new List<GameObject>();
 
         [Header("icono UI/inventario")]
         public Sprite icon;
+
+        /// Devuelve una variante al azar de worldPrefabs, o null si la lista está vacía
+        /// (todavía no se asignó ningún prefab en el Inspector).
+        public GameObject GetRandomWorldPrefab()
+        {
+            if (worldPrefabs == null || worldPrefabs.Count == 0) return null;
+            if (worldPrefabs.Count == 1) return worldPrefabs[0];
+            return worldPrefabs[Random.Range(0, worldPrefabs.Count)];
+        }
     }
 }
