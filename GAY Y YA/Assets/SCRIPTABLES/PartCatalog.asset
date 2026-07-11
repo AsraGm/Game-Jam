@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7bcd7ad93d2ac484e8dc448992f8f7b0, type: 3}
-  m_Name: CATALOGO
+  m_Script: {fileID: 11500000, guid: 14bda934261d528418615dddfa6417c5, type: 3}
+  m_Name: PartCatalog
   m_EditorClassIdentifier: 
-  mechanisms:
-  - {fileID: 11400000, guid: 8611a2391b8f79a4c90ef384372f41db, type: 2}
+  parts:
+  - part: {fileID: 11400000, guid: 91bda2b9600a4c5448d14e860d61bd8d, type: 2}
+    spawnWeight: 1

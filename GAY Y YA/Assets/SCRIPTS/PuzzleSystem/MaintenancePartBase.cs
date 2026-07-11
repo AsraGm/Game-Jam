@@ -35,6 +35,13 @@ namespace TrainMechanic.Puzzles
                  "cualquier reparación. Si se deja vacío, el punto arranca sin nada instalado.")]
         [SerializeField] private GameObject initialPartPrefab;
 
+        [Header("Mecanismo fijo (puesto a mano en el tren)")]
+        [Tooltip("Asigna acá el PuzzleMechanismData de ESTE mecanismo si está puesto a mano " +
+                 "en la escena (los mecanismos ya NO los genera ni poolea un manager, son " +
+                 "fijos en su lugar). Se auto-inicializa solo en OnEnable. Dejalo vacío " +
+                 "únicamente si vas a llamar Initialize() vos mismo desde otro script.")]
+        [SerializeField] private PuzzleMechanismData fixedData;
+
         // La pieza actualmente instalada como hijo de partAttachPoint (la original, o la
         // última con la que se reparó). Se destruye/reemplaza entera en cada reparación,
         // así que no hace falta cachear mesh/material como antes.
@@ -233,6 +240,14 @@ namespace TrainMechanic.Puzzles
             outlineRenderer.SetPropertyBlock(_propBlock);
         }
 
+        protected virtual void OnEnable()
+        {
+            // Si este mecanismo está puesto a mano en la escena (no generado por
+            // un manager), se inicializa solo con su propia data la primera vez.
+            if (fixedData != null && Data == null)
+                Initialize(fixedData);
+        }
+
         protected virtual void OnDisable()
         {
             // limpieza al volver al pool: evita callbacks fantasma sobre un objeto desactivado
@@ -240,5 +255,10 @@ namespace TrainMechanic.Puzzles
             CancelInvoke(nameof(EnterWarningState));
             StopOutline();
         }
+
+#if UNITY_EDITOR
+        [ContextMenu("TEST: Forzar ruptura ahora")]
+        private void ForceBreakNowForTesting() => BreakDown();
+#endif
     }
 }

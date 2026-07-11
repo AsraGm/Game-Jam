@@ -27,6 +27,12 @@ namespace TrainMechanic.Puzzles
         [Header("Peso para selección procedural (mayor = más probable que aparezca)")]
         [Min(0.01f)] public float spawnWeight = 1f;
 
+        [Header("Dificultad (para elegir el vagón al spawnear)")]
+        [Tooltip("TrainLayout intenta ubicar este mecanismo en un WagonSection con el " +
+                 "mismo difficultyTier. Si ningún vagón libre coincide, cae a cualquier " +
+                 "punto libre igual. 1 = fácil, mayor número = más difícil.")]
+        public int difficultyTier = 1;
+
         public float GetRandomDurability() => Random.Range(minDurability, maxDurability);
     }
 }

@@ -1,4 +1,3 @@
-using UnityEditor;
 using UnityEngine;
 
 namespace TrainMechanic.Puzzles
@@ -84,6 +83,10 @@ namespace TrainMechanic.Puzzles
             if (inventory == null || !inventory.IsEmpty) return; // manos ocupadas
 
             if (!inventory.TryAdd(part)) return;
+
+            // Avisa que se recogió (ReplacementPartSpawner libera su punto y
+            // programa la reposición de una pieza nueva en otro lado).
+            part.NotifyPickedUp();
 
             Transform target = handPoint != null ? handPoint : transform;
             Vector3 originalWorldScale = part.transform.lossyScale; // escala mundial ANTES de reparentar

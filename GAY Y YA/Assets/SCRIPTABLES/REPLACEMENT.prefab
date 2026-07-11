@@ -124,4 +124,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e7b97aa70c6aca4e94cbd28c459f9ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 91bda2b9600a4c5448d14e860d61bd8d, type: 2}
+  catalog: {fileID: 11400000, guid: dfa9e64de5d35334b81ff0d851e3d865, type: 2}
+  layout: {fileID: 4033560232277365252, guid: ea307757258680b49966570197225646, type: 3}
+  initialPoolSizePerType: 4
+  restockDelay: 8
+  spawnOnStart: 1

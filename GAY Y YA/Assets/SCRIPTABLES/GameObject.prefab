@@ -195,6 +195,7 @@ MonoBehaviour:
   warningLeadTime: 1
   partAttachPoint: {fileID: 2518180018173935813}
   initialPartPrefab: {fileID: 3192668176041513263}
+  fixedData: {fileID: 11400000, guid: 8611a2391b8f79a4c90ef384372f41db, type: 2}
   pulseSpeed: 7
   valveRenderer: {fileID: 8712015400872815392}
   brokenColor: {r: 1, g: 0, b: 0, a: 1}
