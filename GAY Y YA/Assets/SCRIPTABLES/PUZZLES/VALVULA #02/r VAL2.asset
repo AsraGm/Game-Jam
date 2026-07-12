@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f762d44c58470aa449aa4297e3fcf331, type: 3}
-  m_Name: REPLACEMENT
+  m_Name: r VAL2
   m_EditorClassIdentifier: 
-  partId: replacement
-  displayName: replacement
+  partId: trerstrers
+  displayName: trerstrers
   worldPrefabs:
   - {fileID: 8802472953007357362, guid: 173b4a548f996d34899d34454547962a, type: 3}
   - {fileID: 8802472953007357362, guid: 173b4a548f996d34899d34454547962a, type: 3}

@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eeaa992bdcbd0234aae8b687b2c6daa6, type: 3}
-  m_Name: Puzzle Mechanism
+  m_Name: P VAL2
   m_EditorClassIdentifier: 
-  mechanismId: mecha
-  displayName: mecha
-  mechanismPrefab: {fileID: 8729285425707177494, guid: 69bab90fc6bf8c74b821c1830a258a1a, type: 3}
-  requiredPart: {fileID: 11400000, guid: 91bda2b9600a4c5448d14e860d61bd8d, type: 2}
+  mechanismId: tre
+  displayName: tre
+  mechanismPrefab: {fileID: 6490454094098105674, guid: d20bceba6334933489a12a100df76de5, type: 3}
+  requiredPart: {fileID: 11400000, guid: f9711122f5283c745b17fac732db3180, type: 2}
   minDurability: 3
   maxDurability: 10
-  spawnWeight: 1
-  difficultyTier: 1
+  spawnWeight: 2
+  difficultyTier: 2

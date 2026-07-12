@@ -7,7 +7,7 @@ namespace TrainMechanic.Puzzles
     [DisallowMultipleComponent]
     public abstract class MaintenancePartBase : MonoBehaviour, IPuzzleMechanism
     {
-        [Header("_Scale  _Color)")]
+        [Header("Outline (shader properties _Scale y _Color)")]
         [SerializeField] private Renderer fallbackOutlineRenderer;
 
         // Renderer ACTUAL sobre el que se dibuja el outline. Se recalcula en cada
@@ -33,17 +33,17 @@ namespace TrainMechanic.Puzzles
         [Tooltip("Asigna acá el PuzzleMechanismData de ESTE mecanismo si está puesto a mano")]
         [SerializeField] private PuzzleMechanismData fixedData;
 
-        // La pieza actualmente instalada como hijo de partAttachPoint (la original, o la
-        // última con la que se reparó). Se destruye/reemplaza entera en cada reparación,
-        // así que no hace falta cachear mesh/material como antes.
         private GameObject _installedPartVisual;
 
-        // _Scale del shader: 0.9 = invisible. Roto/aviso = pulsa entre 1.04 y 1.1.
         private static readonly int ScalePropertyId = Shader.PropertyToID("_Scale");
         private static readonly int ColorPropertyId = Shader.PropertyToID("_Color");
-        [Header("Valores shader")]
+
+        [Header("Shader")]
+        [Tooltip("Valor de _Scale cuando el outline está oculto/inactivo (sin renderer válido).")]
         [SerializeField] private float scaleHidden = 0.9f;
+        [Tooltip("Valor mínimo de _Scale durante el pulso (sano/aviso/roto).")]
         [SerializeField] private float scaleMin = 1.04f;
+        [Tooltip("Valor máximo de _Scale durante el pulso (sano/aviso/roto).")]
         [SerializeField] private float scaleMax = 1.1f;
         [SerializeField] private float pulseSpeed = 7f; // ciclos por segundo aprox, ajusta a gusto
 
@@ -170,10 +170,9 @@ namespace TrainMechanic.Puzzles
             _installedPartVisual.transform.localPosition = Vector3.zero;
             _installedPartVisual.transform.localRotation = Quaternion.identity;
 
-            Debug.Log($"localScale={_installedPartVisual.transform.localScale}, " +
-                      $"lossyScale={_installedPartVisual.transform.lossyScale}, " +
-                      $"parentLossyScale={partAttachPoint.lossyScale}");
-
+            // El prefab puede traer Collider/Rigidbody propios (porque también sirve
+            // como pieza recogible suelta en el mundo). Ya instalado, no queremos que
+            // estorbe físicamente ni que la zona de interacción lo detecte de nuevo.
             var col = _installedPartVisual.GetComponentInChildren<Collider>();
             if (col != null) col.enabled = false;
 
@@ -183,6 +182,15 @@ namespace TrainMechanic.Puzzles
             UpdateOutlineRenderer(_installedPartVisual);
         }
 
+        /// Busca, dentro de la pieza recién instalada, un Renderer cuyo material
+        /// tenga las properties _Scale y _Color (las que usa el outline). Así, cada
+        /// vez que se instala una pieza nueva (con su propio mesh/material/shader),
+        /// el outline "sigue" a esa pieza en vez de quedar pegado a un Renderer fijo
+        /// que se rompería (o quedaría como referencia fantasma) apenas cambia la
+        /// variante visual instalada.
+        ///
+        /// installedRoot puede ser null (InstallPart(null), punto vacío): en ese
+        /// caso cae directo al fallback.
         private void UpdateOutlineRenderer(GameObject installedRoot)
         {
             Renderer found = null;
@@ -253,7 +261,7 @@ namespace TrainMechanic.Puzzles
                 StopCoroutine(_outlineRoutine);
                 _outlineRoutine = null;
             }
-            SetScale(ScaleHidden);
+            SetScale(scaleHidden);
         }
 
         // Corre todo el tiempo que el mecanismo está activo (sano, en aviso o roto).
@@ -263,7 +271,7 @@ namespace TrainMechanic.Puzzles
             while (true)
             {
                 float t = (Mathf.Sin(Time.time * pulseSpeed) + 1f) * 0.5f; // 0..1
-                float scale = Mathf.Lerp(ScaleMin, ScaleMax, t);
+                float scale = Mathf.Lerp(scaleMin, scaleMax, t);
                 SetScale(scale);
                 yield return null;
             }

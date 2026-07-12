@@ -15,3 +15,11 @@ MonoBehaviour:
   parts:
   - part: {fileID: 11400000, guid: 91bda2b9600a4c5448d14e860d61bd8d, type: 2}
     spawnWeight: 1
+  - part: {fileID: 11400000, guid: 2d768647ea557ef4e8dd68d57e38d187, type: 2}
+    spawnWeight: 1
+  - part: {fileID: 11400000, guid: f9711122f5283c745b17fac732db3180, type: 2}
+    spawnWeight: 2
+  - part: {fileID: 11400000, guid: 297651675a4d5284283a9adb82677cee, type: 2}
+    spawnWeight: 2
+  - part: {fileID: 11400000, guid: e097ef57f4b026c45b3aee3b822241fc, type: 2}
+    spawnWeight: 2

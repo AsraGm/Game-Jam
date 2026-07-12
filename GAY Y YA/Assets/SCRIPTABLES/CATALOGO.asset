@@ -13,4 +13,8 @@ MonoBehaviour:
   m_Name: CATALOGO
   m_EditorClassIdentifier: 
   mechanisms:
-  - {fileID: 11400000, guid: 8611a2391b8f79a4c90ef384372f41db, type: 2}
+  - {fileID: 11400000, guid: b9442da7609747c4393bb4c556239ce4, type: 2}
+  - {fileID: 11400000, guid: d7645a1a32c902348824f13bdf0f8769, type: 2}
+  - {fileID: 11400000, guid: a18d8f7b4510efc44b9d71fddc851ef6, type: 2}
+  - {fileID: 11400000, guid: 34e687b4512ebf04cafd445d9313209a, type: 2}
+  - {fileID: 11400000, guid: 366df03f7b979c64fbca8493bb9fa072, type: 2}

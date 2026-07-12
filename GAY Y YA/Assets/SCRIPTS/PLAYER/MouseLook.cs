@@ -24,6 +24,16 @@ public class MouseLook : MonoBehaviour
     [SerializeField] private float minPitch = -80f;
     [SerializeField] private float maxPitch = 80f;
 
+    [Header("Corrección por rotación heredada del Mesh padre")]
+    [Tooltip("La cámara cuelga del Mesh del personaje. Si corregiste la rotación del Mesh " +
+             "para que se vea bien de frente (visual), esa corrección TAMBIÉN rota la " +
+             "cámara (su hija), desalineando la pantalla del 'adelante' real que usa " +
+             "MovementController.Move() (basado en playerBody). Usá este valor para " +
+             "cancelar ese offset en la cámara: si W te mueve hacia un costado, probá con " +
+             "el valor opuesto a la rotación Y que le pusiste al Mesh (ej. si rotaste el " +
+             "Mesh +90 en Y, poné -90 acá).")]
+    [SerializeField] private float correccionYawMesh = 0f;
+
     private float _pitch; // rotación vertical acumulada de la cámara
 
     private void Start()
@@ -52,7 +62,7 @@ public class MouseLook : MonoBehaviour
         _pitch -= mouseY;
         _pitch = Mathf.Clamp(_pitch, minPitch, maxPitch);
 
-        transform.localRotation = Quaternion.Euler(_pitch, 0f, 0f);
+        transform.localRotation = Quaternion.Euler(_pitch, correccionYawMesh, 0f);
     }
 
     // Recibe valor del slider (0 a 1) y lo mapea al rango real

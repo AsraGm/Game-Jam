@@ -97,6 +97,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
+  - {fileID: 2100000, guid: 1e7900b795115f74099a632b2ff8c622, type: 2}
   - {fileID: 2100000, guid: 48b6a93668a05494ea6810c938eea20c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -268,7 +269,10 @@ MonoBehaviour:
   warningLeadTime: 1
   partAttachPoint: {fileID: 8058796103787950058}
   initialPartPrefab: {fileID: 1260385353478396971}
-  fixedData: {fileID: 11400000, guid: 8611a2391b8f79a4c90ef384372f41db, type: 2}
+  fixedData: {fileID: 11400000, guid: b9442da7609747c4393bb4c556239ce4, type: 2}
+  scaleHidden: 0.9
+  scaleMin: 1
+  scaleMax: 1.03
   pulseSpeed: 7
   valveRenderer: {fileID: 6411515668734004754}
   brokenColor: {r: 1, g: 0, b: 0, a: 1}

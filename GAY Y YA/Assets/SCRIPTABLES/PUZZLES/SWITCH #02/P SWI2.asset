@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeaa992bdcbd0234aae8b687b2c6daa6, type: 3}
+  m_Name: P SWI2
+  m_EditorClassIdentifier: 
+  mechanismId: cinco
+  displayName: cinco
+  mechanismPrefab: {fileID: 9209123450443655112, guid: baded5a4177a6c34fbdf68d5c79b43f6, type: 3}
+  requiredPart: {fileID: 11400000, guid: e097ef57f4b026c45b3aee3b822241fc, type: 2}
+  minDurability: 3
+  maxDurability: 10
+  spawnWeight: 2
+  difficultyTier: 2

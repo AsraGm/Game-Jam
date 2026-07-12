@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeaa992bdcbd0234aae8b687b2c6daa6, type: 3}
+  m_Name: MVAL#2
+  m_EditorClassIdentifier: 
+  mechanismId: siesie
+  displayName: siesie
+  mechanismPrefab: {fileID: 7348461654680823594, guid: 018dc3b07a37794408d4d87f45dd50d8, type: 3}
+  requiredPart: {fileID: 11400000, guid: 7a7c540b54d3ad4449b2d71cdb9d0a37, type: 2}
+  minDurability: 3
+  maxDurability: 10
+  spawnWeight: 3
+  difficultyTier: 3
