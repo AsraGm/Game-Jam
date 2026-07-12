@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Ponle este script a la CÁMARA (normalmente hija del GameObject del jugador,
@@ -27,8 +28,16 @@ public class MouseLook : MonoBehaviour
 
     private void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        if (EsEscenaMenu())
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
     }
 
     private void Update()
@@ -41,7 +50,7 @@ public class MouseLook : MonoBehaviour
 
         // Vertical: solo se inclina la cámara, nunca el cuerpo.
         _pitch -= mouseY;
-        _pitch = Mathf.Clamp(_pitch, minPitch, maxPitch); 
+        _pitch = Mathf.Clamp(_pitch, minPitch, maxPitch);
 
         transform.localRotation = Quaternion.Euler(_pitch, 0f, 0f);
     }
@@ -56,5 +65,11 @@ public class MouseLook : MonoBehaviour
     public float GetSensibilidadNormalizada()
     {
         return Mathf.InverseLerp(SENSIBILIDAD_MIN, SENSIBILIDAD_MAX, mouseSensitivity);
+    }
+
+    private bool EsEscenaMenu()
+    {
+        string sceneName = SceneManager.GetActiveScene().name.ToUpperInvariant();
+        return sceneName.Contains("MENU") || sceneName.Contains("MAIN");
     }
 }

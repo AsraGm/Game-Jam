@@ -18,7 +18,7 @@ public class PausaManager : MonoBehaviour
 
     [SerializeField] private DialogueSystem dialogueSystem;
 
-    [Header("Submenús del menú de pausa")]
+    [Header("Submenï¿½s del menï¿½ de pausa")]
     [SerializeField] private GameObject botonesPrincipales;  // ? grupo con Reanudar, Config, Salir
     [SerializeField] private GameObject panelConfiguracion;  // ? slider + regresar
 
@@ -34,18 +34,20 @@ public class PausaManager : MonoBehaviour
         PrioridadActual = 0;
         JuegoPausado = false;
         Time.timeScale = 1f;
+
+        Scene currentScene = SceneManager.GetActiveScene();
+        string sceneName = currentScene.name;
+        int buildIndex = currentScene.buildIndex;
+
+        Debug.Log("Active Scene Name: " + sceneName);
+        Debug.Log("Active Scene Index: " + buildIndex);
     }
 
     private void Start()
     {
         if (menuPausa != null) menuPausa.SetActive(false);
 
-        if (SceneManager.GetActiveScene().name.Contains("Menu") ||
-            SceneManager.GetActiveScene().name.Contains("MainMenu"))
-        {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-        }
+        ActualizarCursorSegunEstado();
 
         // Inicializar slider
         if (sliderSensibilidad != null && playerCameraController != null)
@@ -65,6 +67,9 @@ public class PausaManager : MonoBehaviour
 
     void Update()
     {
+        if (EsEscenaMenu())
+            return;
+
         if (DialogueSystem.DialogoActivo && !JuegoPausado)
             return;
 
@@ -102,8 +107,7 @@ public class PausaManager : MonoBehaviour
         if (playerMovement != null) playerMovement.enabled = false;
         if (playerCameraController != null) playerCameraController.enabled = false;
 
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        ActualizarCursorSegunEstado();
     }
 
     public void ReanudarJuego()
@@ -123,11 +127,30 @@ public class PausaManager : MonoBehaviour
             dialogoActivoAntesDePausa = false;
         }
 
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        ActualizarCursorSegunEstado();
     }
 
-    // ?? CONFIGURACIÓN ?????????????????????????????????
+    private bool EsEscenaMenu()
+    {
+        string sceneName = SceneManager.GetActiveScene().name.ToUpperInvariant();
+        return sceneName.Contains("MENU") || sceneName.Contains("MAIN");
+    }
+
+    private void ActualizarCursorSegunEstado()
+    {
+        if (EsEscenaMenu() || JuegoPausado)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+        }
+    }
+
+    // ?? CONFIGURACIï¿½N ?????????????????????????????????
 
     public void AbrirConfiguracion()
     {
@@ -152,12 +175,11 @@ public class PausaManager : MonoBehaviour
 
     public void SalirAlMenuPrincipal()
     {
-        // Reset de variables estáticas ANTES de cambiar escena
+        // Reset de variables estï¿½ticas ANTES de cambiar escena
         PrioridadActual = 0;
         JuegoPausado = false;
         Time.timeScale = 1f;
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        ActualizarCursorSegunEstado();
         SceneManager.LoadScene("MAIN MENU");
     }
 }

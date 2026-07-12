@@ -1,6 +1,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class DialogueSystem : MonoBehaviour
@@ -12,18 +13,23 @@ public class DialogueSystem : MonoBehaviour
     [SerializeField] public GameObject dialoguePanel;
     [SerializeField] private TMP_Text dialogueText;
     [SerializeField] private TMP_Text speakerName;
-    [SerializeField] private string nombrePersonaje = "Morgana";
+    [SerializeField] private string nombrePersonaje = "ANON";
 
     [Header("Configuración de diálogo")]
     [TextArea(3, 6)]
     public string[] lineasDialogo;
 
+    [Header("Intro al cargar la escena")]
+    [SerializeField] private bool iniciarDialogoAlInicio = true;
+    [SerializeField] private bool soloUnaVez = true;
+
     private int indiceDialogo = 0;
     private bool dialogoActivo = false;
+    private bool introIniciada = false;
 
     // Referencias al jugador
     private MovementController playerMovement;
-    private PlayerCameraController cameraController;
+    private MouseLook cameraController;
 
     private void Start()
     {
@@ -35,15 +41,18 @@ public class DialogueSystem : MonoBehaviour
         if (player != null)
         {
             playerMovement = player.GetComponent<MovementController>();
-            cameraController = player.GetComponentInChildren<PlayerCameraController>();
+            cameraController = player.GetComponentInChildren<MouseLook>();
         }
         else
         {
             Debug.LogWarning("No se encontró el objeto con tag 'Player' en la escena.");
         }
 
-        // SOLO UNA LLAMADA AL DIÁLOGO DE INTRO
-        FindFirstObjectByType<SimpleDialogueTrigger>()?.IntroDialogue();
+        if (iniciarDialogoAlInicio && (!soloUnaVez || !introIniciada))
+        {
+            introIniciada = true;
+            IniciarDialogo();
+        }
     }
 
     private void Update()
