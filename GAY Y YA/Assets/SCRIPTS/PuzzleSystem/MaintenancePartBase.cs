@@ -7,14 +7,7 @@ namespace TrainMechanic.Puzzles
     [DisallowMultipleComponent]
     public abstract class MaintenancePartBase : MonoBehaviour, IPuzzleMechanism
     {
-        [Header("Outline (shader properties _Scale y _Color)")]
-        [Tooltip("Renderer de RESPALDO, usado únicamente si la pieza instalada (ver " +
-                 "InstallPart) no tiene ningún Renderer con las properties _Scale/_Color. " +
-                 "En el uso normal NO hace falta asignar esto: el outline se busca solo, " +
-                 "automáticamente, dentro de la pieza que se instala cada vez (así 'sigue' " +
-                 "a la pieza que el jugador puso, sin importar qué mesh/material traiga). " +
-                 "IMPORTANTE: el shader necesita tener una property _Color (tipo Color), " +
-                 "igual que ya tiene _Scale, si todavía no la tiene hay que agregarla.")]
+        [Header("_Scale  _Color)")]
         [SerializeField] private Renderer fallbackOutlineRenderer;
 
         // Renderer ACTUAL sobre el que se dibuja el outline. Se recalcula en cada
@@ -27,27 +20,17 @@ namespace TrainMechanic.Puzzles
         [SerializeField] private Color warningColor = Color.red;
 
         [Header("Aviso antes de romperse")]
-        [Tooltip("Segundos antes de la falla en los que el outline pasa de verde a rojo, " +
-                 "como aviso de que está por romperse. Si es mayor que la durabilidad total, " +
-                 "avisa apenas se repara.")]
+        [Tooltip("Segundos antes de la falla en los que el outline pasa de verde a rojo")]
         [SerializeField] private float warningLeadTime = 5f;
 
         [Header("Visual intercambiable (\"pon cualquier cosa\")")]
-        [Tooltip("Punto (Transform vacío) donde vive la pieza actualmente instalada, como " +
-                 "hijo. Al reparar, se destruye lo que había ahí y se instancia el prefab " +
-                 "completo de la nueva pieza en su lugar. Mismo patrón que 'Hand Point' en " +
-                 "PlayerInteractor, pero del lado del mecanismo.")]
+        [Tooltip("Punto (Transform vacío) donde vive la pieza actualmente instalada")]
         [SerializeField] private Transform partAttachPoint;
-        [Tooltip("Opcional: prefab que se instala en 'Part Attach Point' al inicializarse " +
-                 "(o al reciclarse del pool), representando la pieza rota/original antes de " +
-                 "cualquier reparación. Si se deja vacío, el punto arranca sin nada instalado.")]
+        [Tooltip("Opcional: prefab que se instala en 'Part Attach Point' al inicializarse")]
         [SerializeField] private GameObject initialPartPrefab;
 
         [Header("Mecanismo fijo (puesto a mano en el tren)")]
-        [Tooltip("Asigna acá el PuzzleMechanismData de ESTE mecanismo si está puesto a mano " +
-                 "en la escena (los mecanismos ya NO los genera ni poolea un manager, son " +
-                 "fijos en su lugar). Se auto-inicializa solo en OnEnable. Dejalo vacío " +
-                 "únicamente si vas a llamar Initialize() vos mismo desde otro script.")]
+        [Tooltip("Asigna acá el PuzzleMechanismData de ESTE mecanismo si está puesto a mano")]
         [SerializeField] private PuzzleMechanismData fixedData;
 
         // La pieza actualmente instalada como hijo de partAttachPoint (la original, o la
@@ -58,9 +41,10 @@ namespace TrainMechanic.Puzzles
         // _Scale del shader: 0.9 = invisible. Roto/aviso = pulsa entre 1.04 y 1.1.
         private static readonly int ScalePropertyId = Shader.PropertyToID("_Scale");
         private static readonly int ColorPropertyId = Shader.PropertyToID("_Color");
-        private const float ScaleHidden = 0.9f;
-        private const float ScaleMin = 1.04f;
-        private const float ScaleMax = 1.1f;
+        [Header("Valores shader")]
+        [SerializeField] private float scaleHidden = 0.9f;
+        [SerializeField] private float scaleMin = 1.04f;
+        [SerializeField] private float scaleMax = 1.1f;
         [SerializeField] private float pulseSpeed = 7f; // ciclos por segundo aprox, ajusta a gusto
 
         private MaterialPropertyBlock _propBlock;
@@ -186,9 +170,10 @@ namespace TrainMechanic.Puzzles
             _installedPartVisual.transform.localPosition = Vector3.zero;
             _installedPartVisual.transform.localRotation = Quaternion.identity;
 
-            // El prefab puede traer Collider/Rigidbody propios (porque también sirve
-            // como pieza recogible suelta en el mundo). Ya instalado, no queremos que
-            // estorbe físicamente ni que la zona de interacción lo detecte de nuevo.
+            Debug.Log($"localScale={_installedPartVisual.transform.localScale}, " +
+                      $"lossyScale={_installedPartVisual.transform.lossyScale}, " +
+                      $"parentLossyScale={partAttachPoint.lossyScale}");
+
             var col = _installedPartVisual.GetComponentInChildren<Collider>();
             if (col != null) col.enabled = false;
 
@@ -198,15 +183,6 @@ namespace TrainMechanic.Puzzles
             UpdateOutlineRenderer(_installedPartVisual);
         }
 
-        /// Busca, dentro de la pieza recién instalada, un Renderer cuyo material
-        /// tenga las properties _Scale y _Color (las que usa el outline). Así, cada
-        /// vez que se instala una pieza nueva (con su propio mesh/material/shader),
-        /// el outline "sigue" a esa pieza en vez de quedar pegado a un Renderer fijo
-        /// que se rompería (o quedaría como referencia fantasma) apenas cambia la
-        /// variante visual instalada.
-        ///
-        /// installedRoot puede ser null (InstallPart(null), punto vacío): en ese
-        /// caso cae directo al fallback.
         private void UpdateOutlineRenderer(GameObject installedRoot)
         {
             Renderer found = null;

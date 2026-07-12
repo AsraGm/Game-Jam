@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mechanismId: mecha
   displayName: mecha
-  mechanismPrefab: {fileID: 5320042366217827509, guid: a73e50fc77d8ad64893cf1b8db7ce811, type: 3}
+  mechanismPrefab: {fileID: 8729285425707177494, guid: 69bab90fc6bf8c74b821c1830a258a1a, type: 3}
   requiredPart: {fileID: 11400000, guid: 91bda2b9600a4c5448d14e860d61bd8d, type: 2}
   minDurability: 3
   maxDurability: 10

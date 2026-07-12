@@ -26,6 +26,7 @@ public class DialogueSystem : MonoBehaviour
     private int indiceDialogo = 0;
     private bool dialogoActivo = false;
     private bool introIniciada = false;
+    private float _timeScaleAntes = 1f;
 
     // Referencias al jugador
     private MovementController playerMovement;
@@ -78,6 +79,8 @@ public class DialogueSystem : MonoBehaviour
         dialogoActivo = true;
         DialogoActivo = true;
         dialoguePanel.SetActive(true);
+        _timeScaleAntes = Time.timeScale;
+        Time.timeScale = 0f;
 
         // Bloquear controles
         if (playerMovement != null) playerMovement.enabled = false;
@@ -161,7 +164,7 @@ public class DialogueSystem : MonoBehaviour
             cameraController.enabled = true;
             Debug.Log("[Dialogue] CameraController reactivado");
         }
-
+        Time.timeScale = _timeScaleAntes;
         //  SIEMPRE desbloquear cursor al terminar diálogo
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;

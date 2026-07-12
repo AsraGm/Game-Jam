@@ -59,6 +59,7 @@ namespace TrainMechanic.Puzzles
         private void Update()
         {
             if (IsGameOver || HasArrived) return;
+            if (DialogueSystem.DialogoActivo) return; // no contar tiempo mientras hay diálogo
 
             _elapsed += Time.deltaTime;
             Progress01 = Mathf.Clamp01(_elapsed / journeyDurationSeconds);
