@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f762d44c58470aa449aa4297e3fcf331, type: 3}
   m_Name: r PALANCA
   m_EditorClassIdentifier: 
-  partId: unouno
+  acceptedPartIds: []
   displayName: unouno
   worldPrefabs:
-  - {fileID: 8802472953007357362, guid: 173b4a548f996d34899d34454547962a, type: 3}
-  - {fileID: 8802472953007357362, guid: 173b4a548f996d34899d34454547962a, type: 3}
+  - {fileID: 6742510510625228394, guid: 1e805d4692cdfd34f9570d886ceadf91, type: 3}
+  - {fileID: 8084671244085882051, guid: f2036dbfb4c1ff748bd5cc6c63d97eef, type: 3}
   icon: {fileID: 21300000, guid: 3b1c78863f8ecbd4098f7cf120ed6efa, type: 3}

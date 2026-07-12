@@ -67,8 +67,7 @@ namespace TrainMechanic.Puzzles
                 return;
             }
 
-            Debug.Log($"[REPAIR] Pieza en mano - Data: {inventory.CurrentPart.Data}, partId: {inventory.CurrentPart.Data?.partId} | Requerido: {mechanism.Data.requiredPart?.partId}");
-
+           
             bool repaired = mechanism.TryRepair(inventory.CurrentPart);
             Debug.Log($"[REPAIR] Resultado: {repaired}");
 

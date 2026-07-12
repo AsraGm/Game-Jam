@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: P PALANCA
   m_EditorClassIdentifier: 
   mechanismId: uno
-  displayName: uno
+  displayName: Lever
   mechanismPrefab: {fileID: 8729285425707177494, guid: 69bab90fc6bf8c74b821c1830a258a1a, type: 3}
-  requiredPart: {fileID: 11400000, guid: 91bda2b9600a4c5448d14e860d61bd8d, type: 2}
+  requiredPartId: 
   minDurability: 3
   maxDurability: 10
   spawnWeight: 1

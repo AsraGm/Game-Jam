@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: P SWI1
   m_EditorClassIdentifier: 
   mechanismId: cuatro
-  displayName: cuatro
+  displayName: Switch #01
   mechanismPrefab: {fileID: 8358399405346867488, guid: 57e1c771f72b20442847c2b6861bcd21, type: 3}
-  requiredPart: {fileID: 11400000, guid: 297651675a4d5284283a9adb82677cee, type: 2}
+  requiredPartId: 
   minDurability: 3
   maxDurability: 10
   spawnWeight: 2

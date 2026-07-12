@@ -18,7 +18,7 @@ namespace TrainMechanic.Puzzles
         public GameObject mechanismPrefab;
 
         [Header("Pieza de repuesto compatible")]
-        public ReplacementPartData requiredPart;
+        public string requiredPartId;
 
         [Header("Duración antes de fallar (segundos), rango para variedad")]
         public float minDurability = 30f;

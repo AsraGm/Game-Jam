@@ -12,9 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f762d44c58470aa449aa4297e3fcf331, type: 3}
   m_Name: r MVAL#2
   m_EditorClassIdentifier: 
-  partId: cincin
+  acceptedPartIds: []
   displayName: cincin
   worldPrefabs:
-  - {fileID: 8802472953007357362, guid: 173b4a548f996d34899d34454547962a, type: 3}
-  - {fileID: 8802472953007357362, guid: 173b4a548f996d34899d34454547962a, type: 3}
+  - {fileID: 5203347566584498541, guid: 892f93d76de2e794795c60e9eb11d2ee, type: 3}
+  - {fileID: 2375834612468625375, guid: 7aa500d141d339140ab3f7d4cdf62e6a, type: 3}
+  - {fileID: 7292320593836207100, guid: 9945e481e4c372e48b2ae7f077402e38, type: 3}
+  - {fileID: 4302878309834751227, guid: 72f113180e6158e4698f8b1c455e7539, type: 3}
+  - {fileID: 8474735275144954595, guid: a4d67a27b74bff04c9a174bfd85f4645, type: 3}
+  - {fileID: 8545020938546620984, guid: 67fc3398acf619b408b5989d3ae3fa9a, type: 3}
+  - {fileID: 4664676206514085578, guid: eb26d3949d0c75246b8cdaef5cd6be80, type: 3}
+  - {fileID: 6246319231251294790, guid: ca81d178958b7bc4d8f26778c0852c92, type: 3}
+  - {fileID: 5840953581078418505, guid: 4aeba08c85a07b94cb17d406b2856bca, type: 3}
+  - {fileID: 7453987928678732493, guid: 1f8587e6428f6434287919e467f457c6, type: 3}
   icon: {fileID: 21300000, guid: 3b1c78863f8ecbd4098f7cf120ed6efa, type: 3}

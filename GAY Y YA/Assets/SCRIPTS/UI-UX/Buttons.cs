@@ -15,6 +15,7 @@ public class Buttons : MonoBehaviour
 
     public void HideWindow(GameObject target)
     {
+        Time.timeScale = 1f;
         if (target != null)
             target.SetActive(false);
     }

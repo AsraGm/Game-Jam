@@ -45,9 +45,11 @@ namespace TrainMechanic.Puzzles
 
         public bool IsCompatibleWith(PuzzleMechanismData mechanismData)
         {
-            return mechanismData.requiredPart != null &&
+            return mechanismData != null &&
+                   mechanismData.requiredPartId != null &&
                    Data != null &&
-                   mechanismData.requiredPart.partId == Data.partId;
+                   Data.acceptedPartIds != null &&
+                   System.Array.IndexOf(Data.acceptedPartIds, mechanismData.requiredPartId) >= 0;
         }
 
         /// El prefab que debe instalarse en el mecanismo al reparar con ESTA pieza puntual.

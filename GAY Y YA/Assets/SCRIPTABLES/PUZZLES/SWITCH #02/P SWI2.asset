@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: P SWI2
   m_EditorClassIdentifier: 
   mechanismId: cinco
-  displayName: cinco
+  displayName: Switch #02
   mechanismPrefab: {fileID: 9209123450443655112, guid: baded5a4177a6c34fbdf68d5c79b43f6, type: 3}
-  requiredPart: {fileID: 11400000, guid: e097ef57f4b026c45b3aee3b822241fc, type: 2}
+  requiredPartId: 
   minDurability: 3
   maxDurability: 10
   spawnWeight: 2

@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: P VAL2
   m_EditorClassIdentifier: 
   mechanismId: tre
-  displayName: tre
+  displayName: Valve #02
   mechanismPrefab: {fileID: 6490454094098105674, guid: d20bceba6334933489a12a100df76de5, type: 3}
-  requiredPart: {fileID: 11400000, guid: f9711122f5283c745b17fac732db3180, type: 2}
+  requiredPartId: 
   minDurability: 3
   maxDurability: 10
   spawnWeight: 2
