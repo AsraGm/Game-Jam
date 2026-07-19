@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: r PALANCA
   m_EditorClassIdentifier: 
   acceptedPartIds: []
-  displayName: unouno
+  displayName: Lever
   worldPrefabs:
   - {fileID: 6742510510625228394, guid: 1e805d4692cdfd34f9570d886ceadf91, type: 3}
   - {fileID: 8084671244085882051, guid: f2036dbfb4c1ff748bd5cc6c63d97eef, type: 3}

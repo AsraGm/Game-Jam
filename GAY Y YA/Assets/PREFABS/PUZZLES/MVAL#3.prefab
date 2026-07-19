@@ -103,6 +103,7 @@ GameObject:
   - component: {fileID: 9050778481670439944}
   - component: {fileID: 8418917391624568410}
   - component: {fileID: 183154612429336955}
+  - component: {fileID: 2555003874758371859}
   m_Layer: 8
   m_Name: Small_Valve_1
   m_TagString: A PUZZLE
@@ -179,3 +180,24 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &2555003874758371859
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6105363176124743771}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.7461572, y: 0.73481977, z: 0.4327482}
+  m_Center: {x: 0.000001966954, y: 0.010361329, z: 0.08}

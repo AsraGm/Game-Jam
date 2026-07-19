@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85915d10a94067a4aa888a02fc379a06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 297651675a4d5284283a9adb82677cee, type: 2}
+  data: {fileID: 11400000, guid: e097ef57f4b026c45b3aee3b822241fc, type: 2}
   chosenPrefab: {fileID: 0}
 --- !u!65 &2515152471228563795
 BoxCollider:

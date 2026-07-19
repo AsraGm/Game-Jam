@@ -64,6 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
+  - {fileID: 2100000, guid: e293934309b27b444a858ef43c2c7f09, type: 2}
   - {fileID: 2100000, guid: 2714a3f66d292d64b8601b06e0f5345a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -195,7 +196,7 @@ MonoBehaviour:
   initialPartPrefab: {fileID: 4020507268445726172}
   fixedData: {fileID: 11400000, guid: a18d8f7b4510efc44b9d71fddc851ef6, type: 2}
   scaleHidden: 1
-  scaleMin: 1.1
+  scaleMin: 1.03
   scaleMax: 1.07
   pulseSpeed: 7
   valveRenderer: {fileID: 4155938877677222578}

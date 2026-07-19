@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: MVAL#3
   m_EditorClassIdentifier: 
   mechanismId: cinco
-  displayName: Crank #2
-  mechanismPrefab: {fileID: 7348461654680823594, guid: 018dc3b07a37794408d4d87f45dd50d8, type: 3}
+  displayName: Crank #3
+  mechanismPrefab: {fileID: 796414234080276454, guid: a3b50f316cde3014694904e1de648741, type: 3}
   requiredPartId: 
   minDurability: 3
   maxDurability: 10

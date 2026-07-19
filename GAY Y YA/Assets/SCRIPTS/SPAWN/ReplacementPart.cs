@@ -3,23 +3,12 @@ using UnityEngine;
 
 namespace TrainMechanic.Puzzles
 {
-    /// <summary>
-    /// Instancia en el mundo de una pieza de repuesto que el jugador puede recoger
-    /// y usar para reparar un mecanismo compatible.
-    /// </summary>
     public class ReplacementPart : MonoBehaviour
     {
-        [Tooltip("Si esta pieza la colocas a mano en la escena, asígnala aquí. " +
-                 "Si la genera PartSpawnCycle por código, se puede dejar vacía " +
-                 "y se asigna sola vía Initialize().")]
+        [Tooltip("Si esta pieza la colocas a mano en la escena, asígnala aquí")]
         [SerializeField] private ReplacementPartData data;
 
-        [Tooltip("Qué variante EXACTA de data.worldPrefabs le tocó a esta instancia. " +
-                 "Si la generó PartSpawnCycle, se asigna sola vía Initialize() y es la " +
-                 "misma que ves en el mundo. Si la pieza la pusiste a mano en la escena y " +
-                 "querés que al repararse instale ese mismo prefab (en vez de elegir uno al " +
-                 "azar de la lista), asignalo acá también. Si se deja vacío, al reparar se " +
-                 "elige una variante al azar de data.worldPrefabs (comportamiento anterior).")]
+        [Tooltip("Qué variante EXACTA de data.worldPrefabs le tocó a esta instancia.")]
         [SerializeField] private GameObject chosenPrefab;
 
         public ReplacementPartData Data => data;
@@ -45,11 +34,7 @@ namespace TrainMechanic.Puzzles
 
         public bool IsCompatibleWith(PuzzleMechanismData mechanismData)
         {
-            return mechanismData != null &&
-                   mechanismData.requiredPartId != null &&
-                   Data != null &&
-                   Data.acceptedPartIds != null &&
-                   System.Array.IndexOf(Data.acceptedPartIds, mechanismData.requiredPartId) >= 0;
+            return mechanismData != null;
         }
 
         /// El prefab que debe instalarse en el mecanismo al reparar con ESTA pieza puntual.

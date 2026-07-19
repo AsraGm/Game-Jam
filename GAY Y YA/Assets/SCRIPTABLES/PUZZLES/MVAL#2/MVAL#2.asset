@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: MVAL#2
   m_EditorClassIdentifier: 
   mechanismId: siesie
-  displayName: Crank #1
-  mechanismPrefab: {fileID: 135542292962050143, guid: 3915b92977d931b43ac64f5cc5aa3d55, type: 3}
+  displayName: Crank #2
+  mechanismPrefab: {fileID: 7348461654680823594, guid: 018dc3b07a37794408d4d87f45dd50d8, type: 3}
   requiredPartId: 
   minDurability: 3
   maxDurability: 10

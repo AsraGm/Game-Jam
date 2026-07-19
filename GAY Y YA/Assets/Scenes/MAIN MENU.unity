@@ -366,13 +366,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7796542476315391133}
-        m_TargetAssemblyTypeName: Buttons, Assembly-CSharp
-        m_MethodName: HideWindow
-        m_Mode: 2
+      - m_Target: {fileID: 1116823629}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
-          m_ObjectArgument: {fileID: 1116823629}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -663,8 +663,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 10.923}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1542, y: -628}
-  m_SizeDelta: {x: 423.243, y: 98.806}
+  m_AnchoredPosition: {x: 1542, y: -634.42725}
+  m_SizeDelta: {x: 423.243, y: 68.919}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &336330813
 MonoBehaviour:
@@ -710,10 +710,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7796542476315391133}
-        m_TargetAssemblyTypeName: Buttons, Assembly-CSharp
-        m_MethodName: LoadAScene
-        m_Mode: 5
+      - m_Target: {fileID: 6034124856621259844}
+        m_TargetAssemblyTypeName: SCENECHANGER, Assembly-CSharp
+        m_MethodName: Lv1
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -881,8 +881,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 10.933}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1586, y: -873}
-  m_SizeDelta: {x: 423.243, y: 98.806}
+  m_AnchoredPosition: {x: 1586, y: -878.56}
+  m_SizeDelta: {x: 423.243, y: 65.89}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &596446496
 MonoBehaviour:
@@ -928,10 +928,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7796542476315391133}
-        m_TargetAssemblyTypeName: Buttons, Assembly-CSharp
-        m_MethodName: LoadAScene
-        m_Mode: 5
+      - m_Target: {fileID: 6034124856621259844}
+        m_TargetAssemblyTypeName: SCENECHANGER, Assembly-CSharp
+        m_MethodName: EXIT
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1013,8 +1013,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 8.68}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 1611, y: -994}
-  m_SizeDelta: {x: 423.243, y: 98.806}
+  m_AnchoredPosition: {x: 1611, y: -997.2137}
+  m_SizeDelta: {x: 423.243, y: 60.08}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &745575746
 MonoBehaviour:
@@ -1060,9 +1060,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7796542476315391133}
-        m_TargetAssemblyTypeName: Buttons, Assembly-CSharp
-        m_MethodName: CloseGame
+      - m_Target: {fileID: 6034124856621259844}
+        m_TargetAssemblyTypeName: SCENECHANGER, Assembly-CSharp
+        m_MethodName: REALEXIST
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1882,8 +1882,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 11.018}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 605, y: -226}
-  m_SizeDelta: {x: 423.243, y: 98.806}
+  m_AnchoredPosition: {x: 605, y: -219.573}
+  m_SizeDelta: {x: 423.243, y: 54.072}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1535804360
 MonoBehaviour:
@@ -1929,17 +1929,17 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7796542476315391133}
-        m_TargetAssemblyTypeName: Buttons, Assembly-CSharp
-        m_MethodName: ShowWindow
-        m_Mode: 2
+      - m_Target: {fileID: 1116823629}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
-          m_ObjectArgument: {fileID: 1116823629}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &1535804361
 MonoBehaviour:
@@ -2348,11 +2348,11 @@ RectTransform:
   - {fileID: 745575745}
   m_Father: {fileID: 6506357586750101005}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 1, y: 0.5}
+  m_AnchorMax: {x: 1, y: 0.5}
+  m_AnchoredPosition: {x: 0.000061035156, y: 0}
+  m_SizeDelta: {x: 1920, y: 1080}
+  m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &3456341320557447066
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2436,7 +2436,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7796542476315391132}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: db24754c1328378438f0505fd59a0ec1, type: 3}
   m_Name: 
@@ -2476,7 +2476,6 @@ GameObject:
   - component: {fileID: 1418681349200738385}
   - component: {fileID: 5774878321240405336}
   - component: {fileID: 6034124856621259844}
-  - component: {fileID: 7796542476315391133}
   m_Layer: 5
   m_Name: BUTTOMS
   m_TagString: Untagged
@@ -2484,20 +2483,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &7796542476315391133
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7796542476315391132}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99f19b248412e3d47b815f39aa547b1a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneName: 
-  sceneChangeDelay: 0.2
 --- !u!114 &8701571367156636985
 MonoBehaviour:
   m_ObjectHideFlags: 0

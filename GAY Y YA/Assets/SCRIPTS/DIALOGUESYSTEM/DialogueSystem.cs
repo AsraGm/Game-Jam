@@ -6,6 +6,15 @@ using UnityEngine.UI;
 
 public class DialogueSystem : MonoBehaviour
 {
+    // ESTRUCTURA NUEVA: Agrupa los datos de cada línea individual de conversación
+    [System.Serializable]
+    public struct LineaDeConversacion
+    {
+        public string nombrePersonaje; // Permite cambiar el nombre por línea (ej: "???", "Player", "Npc")
+        public Sprite retratoPersonaje; // El sprite específico para esta línea (expresiones)
+        [TextArea(3, 6)] public string texto; // La frase que dirá
+    }
+
     private bool isPaused = false;
     public static bool DialogoActivo = false;
 
@@ -13,11 +22,11 @@ public class DialogueSystem : MonoBehaviour
     [SerializeField] public GameObject dialoguePanel;
     [SerializeField] private TMP_Text dialogueText;
     [SerializeField] private TMP_Text speakerName;
-    [SerializeField] private string nombrePersonaje = "ANON";
+    [SerializeField] private Image speakerImageComponent; // El componente de la UI (Image)
 
     [Header("Configuración de diálogo")]
-    [TextArea(3, 6)]
-    public string[] lineasDialogo;
+    // MODIFICADO: Ahora es una lista de nuestra estructura personalizada
+    public LineaDeConversacion[] lineasDialogo;
 
     [Header("Intro al cargar la escena")]
     [SerializeField] private bool iniciarDialogoAlInicio = true;
@@ -37,7 +46,6 @@ public class DialogueSystem : MonoBehaviour
         if (dialoguePanel != null)
             dialoguePanel.SetActive(false);
 
-        // Buscar player y sus componentes
         GameObject player = GameObject.FindWithTag("Player");
         if (player != null)
         {
@@ -82,17 +90,14 @@ public class DialogueSystem : MonoBehaviour
         _timeScaleAntes = Time.timeScale;
         Time.timeScale = 0f;
 
-        // Bloquear controles
         if (playerMovement != null) playerMovement.enabled = false;
         if (cameraController != null) cameraController.enabled = false;
-
-        if (speakerName != null)
-            speakerName.text = nombrePersonaje;
 
         MostrarLineaActual();
     }
 
-    public void IniciarDialogoConLineas(string[] nuevasLineas)
+    // MODIFICADO: Adaptado para recibir el nuevo formato de líneas si se llama externamente
+    public void IniciarDialogoConLineas(LineaDeConversacion[] nuevasLineas)
     {
         if (dialogoActivo) return;
 
@@ -105,9 +110,6 @@ public class DialogueSystem : MonoBehaviour
 
         if (playerMovement != null) playerMovement.enabled = false;
         if (cameraController != null) cameraController.enabled = false;
-
-        if (speakerName != null)
-            speakerName.text = nombrePersonaje;
 
         MostrarLineaActual();
     }
@@ -122,12 +124,35 @@ public class DialogueSystem : MonoBehaviour
         isPaused = false;
     }
 
+    // MODIFICADO: Ahora extrae el texto, el nombre y el sprite de la línea actual
     private void MostrarLineaActual()
     {
         if (indiceDialogo < lineasDialogo.Length)
         {
+            LineaDeConversacion lineaActual = lineasDialogo[indiceDialogo];
+
+            // 1. Actualizar Texto de la frase
             if (dialogueText != null)
-                dialogueText.text = lineasDialogo[indiceDialogo];
+                dialogueText.text = lineaActual.texto;
+
+            // 2. Actualizar Nombre del personaje de esta línea
+            if (speakerName != null)
+                speakerName.text = !string.IsNullOrEmpty(lineaActual.nombrePersonaje) ? lineaActual.nombrePersonaje : "ANON";
+
+            // 3. Actualizar Retrato dinámico de esta línea
+            if (speakerImageComponent != null)
+            {
+                if (lineaActual.retratoPersonaje != null)
+                {
+                    speakerImageComponent.gameObject.SetActive(true);
+                    speakerImageComponent.sprite = lineaActual.retratoPersonaje;
+                }
+                else
+                {
+                    // Si decides dejar el sprite vacío en alguna línea, el cuadro de la UI se oculta automáticamente
+                    speakerImageComponent.gameObject.SetActive(false);
+                }
+            }
         }
     }
 
@@ -152,7 +177,6 @@ public class DialogueSystem : MonoBehaviour
 
         dialoguePanel.SetActive(false);
 
-        //  CRÍTICO: Verificar que los scripts existen antes de reactivar
         if (playerMovement != null)
         {
             playerMovement.enabled = true;
@@ -165,25 +189,42 @@ public class DialogueSystem : MonoBehaviour
             Debug.Log("[Dialogue] CameraController reactivado");
         }
         Time.timeScale = _timeScaleAntes;
-        //  SIEMPRE desbloquear cursor al terminar diálogo
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
         Debug.Log("Diálogo terminado. Controles restaurados.");
     }
 
-    public void ReproducirDialogoTemporal(string[] lines)
+    // MODIFICADO: Adaptado para el diálogo temporal utilizando la nueva estructura
+    public void ReproducirDialogoTemporal(LineaDeConversacion[] lines)
     {
         StopAllCoroutines();
         dialoguePanel.SetActive(true);
         StartCoroutine(RunTemporaryDialogue(lines));
     }
 
-    private IEnumerator RunTemporaryDialogue(string[] lines)
+    private IEnumerator RunTemporaryDialogue(LineaDeConversacion[] lines)
     {
         for (int i = 0; i < lines.Length; i++)
         {
-            dialogueText.text = lines[i];
+            LineaDeConversacion lineaActual = lines[i];
+
+            if (dialogueText != null) dialogueText.text = lineaActual.texto;
+            if (speakerName != null) speakerName.text = lineaActual.nombrePersonaje;
+
+            if (speakerImageComponent != null)
+            {
+                if (lineaActual.retratoPersonaje != null)
+                {
+                    speakerImageComponent.gameObject.SetActive(true);
+                    speakerImageComponent.sprite = lineaActual.retratoPersonaje;
+                }
+                else
+                {
+                    speakerImageComponent.gameObject.SetActive(false);
+                }
+            }
+
             yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
         }
 

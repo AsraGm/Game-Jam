@@ -22,4 +22,12 @@ MonoBehaviour:
   - part: {fileID: 11400000, guid: 297651675a4d5284283a9adb82677cee, type: 2}
     spawnWeight: 2
   - part: {fileID: 11400000, guid: e097ef57f4b026c45b3aee3b822241fc, type: 2}
+    spawnWeight: 3
+  - part: {fileID: 11400000, guid: e097ef57f4b026c45b3aee3b822241fc, type: 2}
     spawnWeight: 2
+  - part: {fileID: 11400000, guid: 244265fd507d4a04690da3fa4e414d4d, type: 2}
+    spawnWeight: 3
+  - part: {fileID: 11400000, guid: 7a7c540b54d3ad4449b2d71cdb9d0a37, type: 2}
+    spawnWeight: 3
+  - part: {fileID: 11400000, guid: fa02f2b318e39b84d8c1aab60f108ed8, type: 2}
+    spawnWeight: 3

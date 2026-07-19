@@ -13,15 +13,10 @@ MonoBehaviour:
   m_Name: r SWI2
   m_EditorClassIdentifier: 
   acceptedPartIds: []
-  displayName: cincin
+  displayName: Switches
   worldPrefabs:
-  - {fileID: 8711332440917208294, guid: a3b844c6998b91d4f9ba98fa491c3e8a, type: 3}
   - {fileID: 99284740750877348, guid: 12ee0c3d45f3a7f4f826772611b766f5, type: 3}
-  - {fileID: 8856000323611496329, guid: 1b323b6bfb72bdb43b9174c940e0477e, type: 3}
   - {fileID: 1140754174042270672, guid: 622b3cff4fc5ff5409863ea76268860f, type: 3}
-  - {fileID: 5362781083099757799, guid: bacb3b980fdebe34487c21ae2e91fcfd, type: 3}
-  - {fileID: 5820497719070146518, guid: a8c7b4bd5ecb7bf499ced7bb0f4c9eb6, type: 3}
-  - {fileID: 4639815582083400956, guid: 33c5130ddc6cd354b9ec939fdc1577f3, type: 3}
   - {fileID: 3911679412743096358, guid: ef9a03e31936f8b4d9666af1483743b9, type: 3}
   - {fileID: 7344816557689728869, guid: 737dd5dd512b1594cabdb85c0c2ce67d, type: 3}
   icon: {fileID: 21300000, guid: 3b1c78863f8ecbd4098f7cf120ed6efa, type: 3}
